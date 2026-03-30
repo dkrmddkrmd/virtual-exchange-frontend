@@ -6,7 +6,7 @@ import Chart from 'react-apexcharts';
 // 💡 마법의 코드: 지금 접속한 곳이 localhost면 로컬 백엔드를, 아니면 GCP 서버를 바라봅니다!
 const API_BASE_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:8080'
-    : 'http://35.247.83.127:8080';
+    : ''; // 💡 Vercel 배포 시에는 빈 문자열로 둡니다!
 
 function Home({ token }) {
     const [stocks, setStocks] = useState([]);
