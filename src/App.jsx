@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import MyAssets from './pages/MyAssets';
 import OrderHistory from './pages/OrderHistory';
-import Signup from './components/Signup';
+import Signup from './pages/Signup';
 
 function App() {
     // 전역으로 관리할 로그인 상태 (로컬 스토리지 확인)
