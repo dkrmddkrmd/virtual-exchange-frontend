@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const API_BASE_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:8080'
-    : '';'';
+    : '';
 
 function Login({ setToken }) {
     const [email, setEmail] = useState('');
@@ -55,7 +55,7 @@ function Login({ setToken }) {
 
                 <div style={{ textAlign: 'center', marginTop: '20px' }}>
                     <span style={{ color: '#666', fontSize: '14px' }}>처음이신가요? </span>
-                    <button onClick={() => navigate('/signup')} style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', fontSize: '14px', textDecoration: 'underline' }}>
+                    <button type="button" onClick={() => navigate('/signup')} style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', fontSize: '14px', textDecoration: 'underline' }}>
                         회원가입 하러가기
                     </button>
                 </div>
