@@ -1,16 +1,13 @@
-# React + Vite
+# 📈 Virtual Exchange Frontend (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+본 리포지토리는 가상 자산 거래소 프로젝트의 **프론트엔드 인터페이스**를 담당합니다.
 
-Currently, two official plugins are available:
+### 🛠️ 프로젝트 성격 및 기술 스택
+- **핵심 목표:** 백엔드(Spring Boot, Kafka, Redis) 로직의 실시간 데이터 연동 및 주문 기능 검증
+- **Tech:** React, Axios, ApexCharts (차트 라이브러리)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 🤖 프론트엔드 구축 방식에 관한 안내
+본 프로젝트의 핵심 역량은 **백엔드 아키텍처 설계 및 대용량 데이터 처리**에 집중되어 있습니다.
+따라서 프론트엔드 개발에 소요되는 시간을 최소화하고 백엔드 기능 검증에 집중하기 위해 다음과 같은 방식을 채택하였습니다.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**UI/UX 설계:** React 기반의 기본 UI 구조와 스타일링은 AI(Gemini/ChatGPT)의 도움을 받아 신속하게 구축하였습니다.
