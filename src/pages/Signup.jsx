@@ -5,7 +5,7 @@ import axios from 'axios';
 // 💡 URL 설정 (오타 수정됨)
 const API_BASE_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:8080'
-    : '';
+    : 'http://35.247.83.127:8080';
 
 function Signup() {
     const [email, setEmail] = useState('');
