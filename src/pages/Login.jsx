@@ -52,6 +52,13 @@ function Login({ setToken }) {
                 <button type="submit" style={{ padding: '15px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', fontSize: '16px', marginTop: '10px' }}>
                     로그인
                 </button>
+
+                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                    <span style={{ color: '#666', fontSize: '14px' }}>처음이신가요? </span>
+                    <button onClick={() => navigate('/signup')} style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer', fontSize: '14px', textDecoration: 'underline' }}>
+                        회원가입 하러가기
+                    </button>
+                </div>
             </form>
         </div>
     );
