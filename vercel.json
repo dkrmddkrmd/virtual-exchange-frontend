@@ -7,6 +7,11 @@
         {
             "source": "/(.*)",
             "destination": "/index.html"
-        }
+        },
+      {
+        "source": "/upbit-api/:path*",
+        "destination": "https://api.upbit.com/:path*"
+      }
+
     ]
 }

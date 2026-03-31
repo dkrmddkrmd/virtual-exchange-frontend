@@ -30,7 +30,7 @@ function Home({ token }) {
         try {
             // 업비트 공용 API 사용 (백엔드 거치지 않음)
             // 최근 1분 봉 60개를 가져옵니다.
-            const response = await axios.get(`https://api.upbit.com/v1/candles/minutes/1?market=${marketCode}&count=60`);
+            const response = await axios.get(`/upbit-api/v1/candles/minutes/1?market=${marketCode}&count=60`);
 
             // ApexCharts 형식에 맞게 데이터 변환 [시간, 시가, 고가, 저가, 종가]
             const formattedData = response.data.map(candle => ({
