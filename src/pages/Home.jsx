@@ -5,7 +5,7 @@ import Chart from 'react-apexcharts';
 
 const API_BASE_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:8080'
-    : 'http://35.247.83.127:8080';
+    : 'https://virtual-exchange.kro.kr';
 
 function Home({ token }) {
     const [stocks, setStocks] = useState([]);

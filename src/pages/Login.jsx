@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const API_BASE_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:8080'
-    : 'http://35.247.83.127:8080';
+    : 'https://virtual-exchange.kro.kr';
 
 function Login({ setToken }) {
     const [email, setEmail] = useState('');
