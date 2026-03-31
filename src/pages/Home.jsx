@@ -152,6 +152,28 @@ function Home({ token }) {
 
             <h2 style={{ color: '#2c3e50', marginBottom: '20px' }}>📊 실시간 코인 목록 및 거래</h2>
 
+            {/* 🚨 서버 지연 안내 배너 추가 🚨 */}
+            <div style={{
+                backgroundColor: '#fff3cd',
+                border: '1px solid #ffeeba',
+                color: '#856404',
+                padding: '16px 20px',
+                borderRadius: '8px',
+                marginBottom: '25px',
+                lineHeight: '1.6',
+                fontSize: '14.5px'
+            }}>
+                <h4 style={{ margin: '0 0 8px 0', color: '#664d03', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span>⚠️</span> [시스템 안내] 인프라 한계로 인한 응답 지연 안내
+                </h4>
+                <p style={{ margin: 0 }}>
+                    현재 본 프로젝트는 개인 단위의 제한된 클라우드 환경에서 호스팅 중입니다.<br/>
+                    Kafka, Redis, MySQL 등 대용량 처리를 위한 다수의 컨테이너가 <b>제한된 메모리(1GB)에서 동시 구동</b>되어, 실시간 주문 및 차트 조회 시 서버 지연(무한 로딩)이 발생할 수 있습니다.<br/>
+                    이력서에 기재된 <b>'응답 속도 0.5초, TPS 1,500+' 지표는 메모리가 확보된 로컬 부하 테스트 환경 기준</b>입니다. 실제 동작 원리와 코드는 GitHub의 <a href="https://github.com/dkrmddkrmd/virtual-exchange" target="_blank" rel="noreferrer" style={{ color: '#0056b3', fontWeight: 'bold', textDecoration: 'underline' }}>README</a>와 <a href="https://dkrmddkrmd.github.io/virtual-exchange/" target="_blank" rel="noreferrer" style={{ color: '#0056b3', fontWeight: 'bold', textDecoration: 'underline' }}>API 명세서</a>를 참고해 주시면 감사하겠습니다.
+                </p>
+            </div>
+            {/* ---------------------------------- */}
+
             {/* 💡 차트 영역 영역 배치 (가로 전체 너비) */}
             {selectedCoin && (
                 <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', marginBottom: '25px' }}>
@@ -267,6 +289,5 @@ function Home({ token }) {
             </div>
         </div>
     );
-}
 
 export default Home;
