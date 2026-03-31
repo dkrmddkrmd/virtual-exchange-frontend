@@ -46,7 +46,7 @@ function MyAssets({ token }) {
         setIsCharging(true);
         try {
             // 백엔드 컨트롤러 주소에 맞게 수정 (예: /api/charge 또는 /api/assets/charge)
-            const response = await axios.patch('http://localhost:8080/api/assets/charge',
+            const response = await axios.patch(`${API_BASE_URL}/api/assets/charge`,
                 { money: Number(chargeAmount) },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
