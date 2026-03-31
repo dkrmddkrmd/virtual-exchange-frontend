@@ -168,7 +168,7 @@ function Home({ token }) {
                 </h4>
                 <p style={{margin: 0}}>
                     현재 본 프로젝트는 개인 단위의 제한된 클라우드 환경에서 호스팅 중입니다.<br/>
-                    Kafka, Redis, MySQL 등 대용량 처리를 위한 다수의 컨테이너가 <b>제한된 메모리(1GB)에서 동시 구동</b>되어, 실시간 주문 및 차트 조회 시 서버 지연(무한
+                    Kafka, Redis, MySQL 등 대용량 처리를 위한 다수의 컨테이너가 <b>제한된 물리 메모리(1GB) 및 스왑 메모리(2GB) 환경에서 동시 구동</b>되어, 실시간 주문 및 차트 조회 시 서버 지연(무한
                     로딩)이 발생할 수 있습니다.<br/>
                     이력서에 기재된 <b>'응답 속도 0.5초, TPS 1,500+' 지표는 메모리가 확보된 로컬 부하 테스트 환경 기준</b>입니다. 실제 동작 원리와 코드는 GitHub의 <a
                     href="https://github.com/dkrmddkrmd/virtual-exchange" target="_blank" rel="noreferrer"
