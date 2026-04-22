@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
-const API_BASE_URL = window.location.hostname === 'localhost'
-    ? 'http://localhost:8080'
-    : 'https://virtual-exchange.kro.kr';
+import axiosInstance from '../api/axiosInstance';
 
 function Login({ setToken }) {
     const [email, setEmail] = useState('');
@@ -14,18 +10,15 @@ function Login({ setToken }) {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${API_BASE_URL}/api/users/login`, {
-                email: email,
-                password: password
-            });
+            const response = await axiosInstance.post('/api/users/login', { email, password });
             const token = response.data.accessToken;
             localStorage.setItem('accessToken', token);
             setToken(token);
-            alert("로그인 성공입니다!"); // 💡 존댓말로 수정
+            alert("로그인 성공입니다!");
             navigate('/');
         } catch (error) {
             console.error("로그인 에러", error);
-            alert("로그인에 실패했습니다. 이메일이나 비밀번호를 확인해 주세요."); // 💡 존댓말로 수정
+            alert("로그인에 실패했습니다. 이메일이나 비밀번호를 확인해 주세요.");
         }
     };
 

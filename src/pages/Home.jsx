@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-// 💡 차트 라이브러리 임포트
 import Chart from 'react-apexcharts';
-
-const API_BASE_URL = window.location.hostname === 'localhost'
-    ? 'http://localhost:8080'
-    : 'https://virtual-exchange.kro.kr';
+import axiosInstance from '../api/axiosInstance';
 
 function Home({ token }) {
     const [stocks, setStocks] = useState([]);
@@ -17,9 +13,8 @@ function Home({ token }) {
     const [chartData, setChartData] = useState([]);
     const [isChartLoading, setIsChartLoading] = useState(false);
 
-    // 코인 목록 불러오기 (기존 동일)
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/api/stocks`)
+        axiosInstance.get('/api/stocks')
             .then(response => setStocks(response.data))
             .catch(error => console.error("코인 목록 조회 에러 발생", error));
     }, []);
@@ -70,12 +65,10 @@ function Home({ token }) {
         }
 
         try {
-            await axios.post(`${API_BASE_URL}/api/orders`, {
+            await axiosInstance.post('/api/orders', {
                 code: selectedCoin.code,
                 quantity: Number(quantity),
                 orderType: tradeType
-            }, {
-                headers: {Authorization: `Bearer ${token}`}
             });
             alert(`${selectedCoin.name} ${quantity}개 주문이 성공적으로 접수되었습니다!`);
             setQuantity('');

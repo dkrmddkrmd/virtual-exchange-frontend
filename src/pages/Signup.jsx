@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
-// 💡 URL 설정 (오타 수정됨)
-const API_BASE_URL = window.location.hostname === 'localhost'
-    ? 'http://localhost:8080'
-    : 'https://virtual-exchange.kro.kr';
+import axiosInstance from '../api/axiosInstance';
 
 function Signup() {
     const [email, setEmail] = useState('');
@@ -16,13 +11,7 @@ function Signup() {
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            // 백엔드 회원가입 엔드포인트 확인 필요 (/api/users/signup)
-            await axios.post(`${API_BASE_URL}/api/users/signup`, {
-                email: email,
-                password: password,
-                name: name
-            });
-
+            await axiosInstance.post('/api/users/signup', { email, password, name });
             alert("회원가입이 완료되었습니다! 로그인을 진행해 주세요.");
             navigate('/login');
         } catch (error) {

@@ -1,12 +1,17 @@
 import { NavLink, useNavigate } from 'react-router-dom';
+import axiosInstance from '../api/axiosInstance';
 
 function Navbar({ token, setToken }) {
     const navigate = useNavigate();
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        try {
+            await axiosInstance.post('/api/users/logout');
+        } catch {
+            // 서버 오류여도 클라이언트 상태는 초기화
+        }
         localStorage.removeItem('accessToken');
         setToken(null);
-        alert("로그아웃 되었습니다.");
         navigate('/');
     };
 

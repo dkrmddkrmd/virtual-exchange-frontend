@@ -1,34 +1,20 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../api/axiosInstance';
 
-const API_BASE_URL = window.location.hostname === 'localhost'
-    ? 'http://localhost:8080'
-    : 'https://virtual-exchange.kro.kr';
-
-function OrderHistory({ token }) {
+function OrderHistory() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    // 💡 페이지네이션을 위한 상태 추가 (스프링은 0페이지부터 시작)
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
         const fetchOrders = async () => {
-            setLoading(true); // 페이지 이동 시 로딩 상태 표시
+            setLoading(true);
             try {
-                const response = await axios.get(`${API_BASE_URL}/api/orders`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                    params: {
-                        page: currentPage,
-                        size: 10 // 한 페이지당 개수 (컨트롤러 기본값과 동일하게 맞춤)
-                    }
+                const response = await axiosInstance.get('/api/orders', {
+                    params: { page: currentPage, size: 10 }
                 });
-
-
                 setOrders(response.data.content || []);
-                // 💡 여기를 수정합니다! response.data.page 안에 있는 totalPages를 꺼내옵니다.
-                // (혹시 모를 에러를 방지하기 위해 옵셔널 체이닝(?.)을 사용합니다.)
                 setTotalPages(response.data.page?.totalPages || response.data.totalPages || 1);
             } catch (error) {
                 console.error("주문 내역 조회 실패:", error);
@@ -37,12 +23,9 @@ function OrderHistory({ token }) {
             }
         };
 
-        if (token) {
-            fetchOrders();
-        }
-    }, [token, currentPage]); // 💡 currentPage가 변경될 때마다 useEffect 재실행
+        fetchOrders();
+    }, [currentPage]);
 
-    // 페이지 이동 핸들러
     const handlePrevPage = () => {
         if (currentPage > 0) setCurrentPage(prev => prev - 1);
     };
@@ -83,24 +66,12 @@ function OrderHistory({ token }) {
                     ) : (
                         orders.map(order => (
                             <tr key={order.orderId} style={{ borderBottom: '1px solid #f1f3f5' }}>
-                                <td style={{ padding: '18px 20px', color: '#6c757d', fontSize: '14px' }}>
-                                    {order.orderDate}
-                                </td>
-                                <td style={{ padding: '18px 20px', textAlign: 'center', fontWeight: 'bold', color: order.orderType === '매수' ? '#dc3545' : '#007bff' }}>
-                                    {order.orderType}
-                                </td>
-                                <td style={{ padding: '18px 20px', fontWeight: 'bold', color: '#2b2b2b' }}>
-                                    {order.stockName}
-                                </td>
-                                <td style={{ padding: '18px 20px', textAlign: 'right', color: '#495057' }}>
-                                    {order.quantity.toLocaleString()}
-                                </td>
-                                <td style={{ padding: '18px 20px', textAlign: 'right', color: '#495057' }}>
-                                    {order.price.toLocaleString()}원
-                                </td>
-                                <td style={{ padding: '18px 20px', textAlign: 'right', fontWeight: 'bold', color: '#2b2b2b' }}>
-                                    {order.totalAmount.toLocaleString()}원
-                                </td>
+                                <td style={{ padding: '18px 20px', color: '#6c757d', fontSize: '14px' }}>{order.orderDate}</td>
+                                <td style={{ padding: '18px 20px', textAlign: 'center', fontWeight: 'bold', color: order.orderType === '매수' ? '#dc3545' : '#007bff' }}>{order.orderType}</td>
+                                <td style={{ padding: '18px 20px', fontWeight: 'bold', color: '#2b2b2b' }}>{order.stockName}</td>
+                                <td style={{ padding: '18px 20px', textAlign: 'right', color: '#495057' }}>{order.quantity.toLocaleString()}</td>
+                                <td style={{ padding: '18px 20px', textAlign: 'right', color: '#495057' }}>{order.price.toLocaleString()}원</td>
+                                <td style={{ padding: '18px 20px', textAlign: 'right', fontWeight: 'bold', color: '#2b2b2b' }}>{order.totalAmount.toLocaleString()}원</td>
                             </tr>
                         ))
                     )}
@@ -108,7 +79,6 @@ function OrderHistory({ token }) {
                 </table>
             </div>
 
-            {/* 💡 페이지네이션 버튼 UI 추가 */}
             {!loading && orders.length > 0 && (
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px', marginTop: '30px' }}>
                     <button
@@ -120,7 +90,6 @@ function OrderHistory({ token }) {
                     </button>
 
                     <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#495057' }}>
-                        {/* 스프링은 0부터 시작하므로 사용자에게 보여줄 때는 +1을 해줍니다 */}
                         {currentPage + 1} / {totalPages}
                     </span>
 
