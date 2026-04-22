@@ -48,32 +48,46 @@ function OrderHistory() {
                         <th style={{ padding: '18px 20px', textAlign: 'right', color: '#495057' }}>주문 수량</th>
                         <th style={{ padding: '18px 20px', textAlign: 'right', color: '#495057' }}>체결 가격</th>
                         <th style={{ padding: '18px 20px', textAlign: 'right', color: '#495057' }}>총 금액</th>
+                        <th style={{ padding: '18px 20px', textAlign: 'center', color: '#495057' }}>상태</th>
                     </tr>
                     </thead>
                     <tbody>
                     {loading ? (
                         <tr>
-                            <td colSpan="6" style={{ padding: '40px', textAlign: 'center', color: '#6c757d' }}>
+                            <td colSpan="7" style={{ padding: '40px', textAlign: 'center', color: '#6c757d' }}>
                                 데이터를 불러오는 중입니다...
                             </td>
                         </tr>
                     ) : orders.length === 0 ? (
                         <tr>
-                            <td colSpan="6" style={{ padding: '40px', textAlign: 'center', color: '#6c757d' }}>
+                            <td colSpan="7" style={{ padding: '40px', textAlign: 'center', color: '#6c757d' }}>
                                 주문 내역이 존재하지 않습니다.
                             </td>
                         </tr>
                     ) : (
-                        orders.map(order => (
-                            <tr key={order.orderId} style={{ borderBottom: '1px solid #f1f3f5' }}>
-                                <td style={{ padding: '18px 20px', color: '#6c757d', fontSize: '14px' }}>{order.orderDate}</td>
-                                <td style={{ padding: '18px 20px', textAlign: 'center', fontWeight: 'bold', color: order.orderType === '매수' ? '#dc3545' : '#007bff' }}>{order.orderType}</td>
-                                <td style={{ padding: '18px 20px', fontWeight: 'bold', color: '#2b2b2b' }}>{order.stockName}</td>
-                                <td style={{ padding: '18px 20px', textAlign: 'right', color: '#495057' }}>{order.quantity.toLocaleString()}</td>
-                                <td style={{ padding: '18px 20px', textAlign: 'right', color: '#495057' }}>{order.price.toLocaleString()}원</td>
-                                <td style={{ padding: '18px 20px', textAlign: 'right', fontWeight: 'bold', color: '#2b2b2b' }}>{order.totalAmount.toLocaleString()}원</td>
-                            </tr>
-                        ))
+                        orders.map(order => {
+                            const isFailed = order.status === 'FAILED';
+                            return (
+                                <tr key={order.orderId} style={{ borderBottom: '1px solid #f1f3f5', backgroundColor: isFailed ? '#fff5f5' : 'transparent' }}>
+                                    <td style={{ padding: '18px 20px', color: '#6c757d', fontSize: '14px' }}>{order.orderDate}</td>
+                                    <td style={{ padding: '18px 20px', textAlign: 'center', fontWeight: 'bold', color: order.orderType === '매수' ? '#dc3545' : '#007bff' }}>{order.orderType}</td>
+                                    <td style={{ padding: '18px 20px', fontWeight: 'bold', color: isFailed ? '#999' : '#2b2b2b' }}>{order.stockName}</td>
+                                    <td style={{ padding: '18px 20px', textAlign: 'right', color: isFailed ? '#999' : '#495057' }}>{order.quantity.toLocaleString()}</td>
+                                    <td style={{ padding: '18px 20px', textAlign: 'right', color: isFailed ? '#999' : '#495057' }}>{order.price.toLocaleString()}원</td>
+                                    <td style={{ padding: '18px 20px', textAlign: 'right', fontWeight: 'bold', color: isFailed ? '#999' : '#2b2b2b' }}>{order.totalAmount.toLocaleString()}원</td>
+                                    <td style={{ padding: '18px 20px', textAlign: 'center' }}>
+                                        <span style={{ display: 'inline-block', padding: '3px 10px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', backgroundColor: isFailed ? '#dc3545' : '#28a745', color: 'white' }}>
+                                            {isFailed ? '실패' : '성공'}
+                                        </span>
+                                        {isFailed && order.failReason && (
+                                            <div style={{ marginTop: '5px', fontSize: '12px', color: '#dc3545' }}>
+                                                {order.failReason}
+                                            </div>
+                                        )}
+                                    </td>
+                                </tr>
+                            );
+                        })
                     )}
                     </tbody>
                 </table>
