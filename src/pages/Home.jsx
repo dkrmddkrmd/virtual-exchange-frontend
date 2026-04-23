@@ -74,7 +74,15 @@ function Home({ token }) {
             setQuantity('');
         } catch (error) {
             console.error("거래 에러 상세 내역:", error.response);
-            alert("주문에 실패했습니다. 서버를 확인해 주세요.");
+            const status = error.response?.status;
+            const serverMessage = error.response?.data?.message;
+            if (serverMessage) {
+                alert(serverMessage);
+            } else if (status >= 500) {
+                alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+            } else {
+                alert("요청 오류가 발생했습니다. 입력 내용을 확인해 주세요.");
+            }
         }
     };
 
